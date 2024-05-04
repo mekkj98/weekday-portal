@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Find jobs via Weekday",
-  description: "It's easy to get a job when you are using weekday",
+  description: "We, at Weekday, are creating a go-to hub for uncovering the real issues candidates should be aware of before joining a company.",
   manifest: "/manifest.json",
 };
 
