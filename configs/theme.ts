@@ -13,13 +13,21 @@ const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
+  palette: {
+    primary: {
+      light: "#88f4d6",
+      main: "#55efc4",
+      dark: "#44ebb6",
+      contrastText: "#000000"
+    },
+  },
   components: {
     MuiAppBar: {
       defaultProps: {
         elevation: 0,
       },
-    }
-  }
+    },
+  },
 });
 
 export default theme;
