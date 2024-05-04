@@ -1,8 +1,16 @@
 "use client";
 
-import * as React from 'react';
-import Button from '@mui/material/Button';
+import HomeLayout from "@/components/layouts/home/index";
+import dynamic from "next/dynamic";
 
-export default function Home() {
-  return <Button variant="contained">Hello world</Button>;
+const Home = dynamic(() => import("@/components/templates/jobs"), {
+  ssr: false,
+});
+
+export default function HomePage() {
+  return (
+    <HomeLayout>
+      <Home />
+    </HomeLayout>
+  );
 }
