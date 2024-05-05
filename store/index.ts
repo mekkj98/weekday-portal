@@ -1,8 +1,9 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
+import { jobListSlice } from "./features/jobList/slice";
 
 // -- `combineSlices` combines the reducers, so no longer need to call `combineReducers`. --
-const rootReducer = combineSlices();
+const rootReducer = combineSlices(jobListSlice);
 
 // -- Infer the `RootState` type from the root reducer --
 export type RootState = ReturnType<typeof rootReducer>;

@@ -3,7 +3,7 @@
 import HomeLayout from "@/components/layouts/home/index";
 import dynamic from "next/dynamic";
 
-const Home = dynamic(() => import("@/components/templates/jobs"), {
+const Home = dynamic(() => import("@/components/templates/jobList"), {
   ssr: false,
 });
 

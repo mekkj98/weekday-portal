@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./global.css"
+import { StoreProvider } from "@/store/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {children}
+            <StoreProvider>{children}</StoreProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

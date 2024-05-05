@@ -62,6 +62,7 @@ export default function HomeLayoutNavbar({
                 alt="logo small"
                 height={26}
                 width={122}
+                priority={true}
               />
           ) :
           <Typography variant="h5" fontWeight="500" noWrap component="div">

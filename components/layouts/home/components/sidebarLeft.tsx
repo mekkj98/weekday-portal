@@ -59,6 +59,7 @@ export default function HomeLayoutSidebarLeft({
             alt="logo small"
             height={26}
             width={122}
+            priority={true}
           />
         ) : null}
 
