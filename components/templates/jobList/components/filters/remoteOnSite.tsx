@@ -1,9 +1,28 @@
+import { jobListSlice } from "@/store/features/jobList/slice";
+import { useAppDispatch } from "@/store/hooks";
 import Autocomplete from "@mui/material/Autocomplete";
 import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
 export default function JobListFilterRemoteOnSite() {
+  const dispatch = useAppDispatch();
+
+  const onChange = (
+    _: any,
+    value: {
+      label: string;
+      value: string;
+    }[]
+  ) => {
+    const newValue = value.map((v) => v.value.toLowerCase());
+    dispatch(
+      jobListSlice.actions.setFilter({
+        remote: newValue,
+      })
+    );
+  };
+
   return (
     <Stack sx={{ width: "auto", minWidth: "110px" }}>
       <InputLabel
@@ -15,6 +34,7 @@ export default function JobListFilterRemoteOnSite() {
         size="small"
         multiple
         options={roles}
+        onChange={onChange}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField {...params} label={undefined} placeholder="Remote" />
@@ -25,7 +45,7 @@ export default function JobListFilterRemoteOnSite() {
 }
 
 const roles = [
-  { label: "Remote" },
-  { label: "Hybrid" },
-  { label: "In Office" },
+  { label: "Remote", value: "remote" },
+  { label: "Hybrid", value: "hybrid" },
+  { label: "In Office", value: "in office" },
 ];

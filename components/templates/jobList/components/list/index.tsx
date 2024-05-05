@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AutoSizer, Grid, WindowScroller } from "react-virtualized";
 import JobListGridLoader from "./loader";
+import { useEffect, useRef } from "react";
+import { useResizeObserver } from "usehooks-ts";
 
 // -- Job list grid component --
 // -- To render the list of current jobs(post applying search and filter) --
@@ -15,12 +17,28 @@ export default function JobListGrid({
   columns: number;
   width: number;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const sizes = useResizeObserver({ ref, box: "border-box" })
+
   const dispatch = useAppDispatch();
 
   // -- select data to render and status and also get hasMore to optimize the api call. --
   const data = useAppSelector((s) => jobListSlice.selectSlice(s).viewData);
   const status = useAppSelector(jobListSlice.selectors.selectStatus);
   const hasMore = useAppSelector((s) => jobListSlice.selectSlice(s).hasMore);
+
+  // auto load data if data in not filled in full screen height;
+  // let's say user open websit on 5000 x 10000 px screen
+  // and initial data is not enough to fill the screen
+  // then we can load more data to fill the screen.
+  // -- this is just a optimization to load data --
+  useEffect(() => {
+    if(!sizes.height) return;
+    if (sizes.height <= window.innerHeight && status === "idle") {
+      dispatch(jobListSlice.actions.fetchJobs(null));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sizes, status])
 
   // -- fetch next page data --
   const onNext = async () => {
@@ -44,7 +62,7 @@ export default function JobListGrid({
   };
 
   return (
-    <Box display="block" height="100%" flex={1}>
+    <Box display="block" height="100%" flex={1} ref={ref}>
       {/* -- Render grid only when data is available -- */}
       {data.length ? (
         <InfiniteScroll

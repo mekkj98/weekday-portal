@@ -1,3 +1,5 @@
+import { jobListSlice } from "@/store/features/jobList/slice";
+import { useAppDispatch } from "@/store/hooks";
 import { InputLabel } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
@@ -21,6 +23,23 @@ const GroupItems = styled("ul")({
 });
 
 export default function JobListFilterRole() {
+  const dispatch = useAppDispatch();
+
+  const onChange = (
+    _: any,
+    value: {
+      label: string;
+      value: string;
+    }[]
+  ) => {
+    const newValue = value.map((v) => v.value.toLowerCase());
+    dispatch(
+      jobListSlice.actions.setFilter({
+        roles: newValue,
+      })
+    );
+  };
+
   return (
     <Stack sx={{ width: "auto", minWidth: "100px" }}>
       <InputLabel
@@ -32,9 +51,9 @@ export default function JobListFilterRole() {
         size="small"
         multiple
         options={roles}
+        onChange={onChange}
         getOptionLabel={(option) => option.label}
         groupBy={(option) => option.group}
-        defaultValue={[roles[13]]}
         filterSelectedOptions
         renderGroup={(params) => (
           <li key={params.key}>
@@ -56,65 +75,65 @@ const roles = [
   { group: "Engineering", label: "fullstack", value: "fullstack" },
   { group: "Engineering", label: "iOS", value: "iOS" },
   { group: "Engineering", label: "flutter", value: "flutter" },
-  { group: "Engineering", label: "react native", value: "react_native" },
+  { group: "Engineering", label: "react native", value: "react native" },
   { group: "Engineering", label: "android", value: "android" },
-  { group: "Engineering", label: "tech lead", value: "tech_lead" },
-  { group: "Engineering", label: "dev-ops", value: "dev_ops" },
-  { group: "Engineering", label: "data engineer", value: "data_engineer" },
-  { group: "Engineering", label: "data science", value: "data_science" },
+  { group: "Engineering", label: "tech lead", value: "tech lead" },
+  { group: "Engineering", label: "dev-ops", value: "dev ops" },
+  { group: "Engineering", label: "data engineer", value: "data engineer" },
+  { group: "Engineering", label: "data science", value: "data science" },
   {
     group: "Engineering",
     label: "computer-vision",
-    value: "computer_vision",
+    value: "computer vision",
   },
   { group: "Engineering", label: "nlp", value: "nlp" },
-  { group: "Engineering", label: "deep-learning", value: "deep_learning" },
-  { group: "Engineering", label: "test / qa", value: "test_qa" },
+  { group: "Engineering", label: "deep-learning", value: "deep learning" },
+  { group: "Engineering", label: "test / qa", value: "test qa" },
   { group: "Engineering", label: "Web3", value: "Web3" },
   { group: "Engineering", label: "sre", value: "sre" },
   {
     group: "Engineering",
     label: "data-infrastructure",
-    value: "data_infrastructure",
+    value: "data infrastructure",
   },
 
   { group: "Design", label: "designer", value: "designer" },
-  { group: "Design", label: "design manager", value: "design_manager" },
-  { group: "Design", label: "graphic designer", value: "graphic_designer" },
-  { group: "Design", label: "product designer", value: "product_designer" },
+  { group: "Design", label: "design manager", value: "design manager" },
+  { group: "Design", label: "graphic designer", value: "graphic designer" },
+  { group: "Design", label: "product designer", value: "product designer" },
 
-  { group: "Product", label: "product manager", value: "product_manager" },
+  { group: "Product", label: "product manager", value: "product manager" },
 
   {
     group: "Operations",
     label: "Operations Manager",
-    value: "operations_manager",
+    value: "operations manager",
   },
   {
     group: "Operations",
     label: "founder’s office/chief Of staff",
-    value: "founder_office_chief_of_staff",
+    value: "founder_office_chief_of staff",
   },
 
   {
     group: "Sales",
     label: "sales development representative",
-    value: "sales_development_representative",
+    value: "sales_development representative",
   },
-  { group: "Sales", label: "account executive", value: "account_executive" },
-  { group: "Sales", label: "account manager", value: "account_manager" },
+  { group: "Sales", label: "account executive", value: "account executive" },
+  { group: "Sales", label: "account manager", value: "account manager" },
 
   {
     group: "Marketing",
     label: "digital marketing manager",
-    value: "digital_marketing_manager",
+    value: "digital_marketing manager",
   },
-  { group: "Marketing", label: "growth hacker", value: "growth_hacker" },
+  { group: "Marketing", label: "growth hacker", value: "growth hacker" },
   { group: "Marketing", label: "Marketing", value: "Marketing" },
   {
     group: "Marketing",
     label: "product marketing manager",
-    value: "product_marketing_manager",
+    value: "product_marketing manager",
   },
 
   { group: "Other Engineering", label: "hardware", value: "hardware" },
@@ -124,15 +143,15 @@ const roles = [
   {
     group: "Business Analyst",
     label: "business analyst",
-    value: "business_analyst",
+    value: "business analyst",
   },
 
-  { group: "Data Analyst", label: "data analyst", value: "data_analyst" },
+  { group: "Data Analyst", label: "data analyst", value: "data analyst" },
 
   {
     group: "Project Manager",
     label: "project manager",
-    value: "project_manager",
+    value: "project manager",
   },
 
   { group: "Management", label: "management", value: "management" },
