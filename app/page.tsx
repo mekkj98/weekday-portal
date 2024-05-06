@@ -1,9 +1,16 @@
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import HomeLayout from "@/components/layouts/home/index";
+import dynamic from "next/dynamic";
+
+const Home = dynamic(() => import("@/components/templates/jobList"), {
+  ssr: false,
+});
+
+export default function HomePage() {
   return (
-    <main className={styles.main}>
-      Let&apos;s get started
-    </main>
+    <HomeLayout>
+      <Home />
+    </HomeLayout>
   );
 }
